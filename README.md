@@ -44,8 +44,11 @@ replace_rule<num> <key_regexp> <new_key>
 # Optional: remove tag prefix
 remove_tag_prefix <string>
 
-# Optional: append additional name to the original tag, default is "key_renamed"
+# Optional: append additional name to the original tag, default is "key_renamed" (use "" for none or if prepend_tag is set)
 append_tag <string>
+
+# Optional: prepend additional name to the original tag, default is ""
+prepend_tag <string>
 
 # Optional: dig into the hash structure and rename every matched key, or rename only keys at the first level,
 # default is "true"

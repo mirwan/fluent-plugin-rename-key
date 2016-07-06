@@ -20,11 +20,14 @@ class Fluent::RenameKeyOutput < Fluent::Output
   end
 
   DEFAULT_APPEND_TAG = 'key_renamed'
+  DEFAULT_PREPEND_TAG = ''
 
   desc 'Specify and remove tag prefix.'
   config_param :remove_tag_prefix, :string, default: nil
   desc "Append custom tag postfix (default: #{DEFAULT_APPEND_TAG})."
   config_param :append_tag, :string, default: DEFAULT_APPEND_TAG
+  desc "Prepend custom tag prefix (default: #{DEFAULT_PREPEND_TAG})."
+  config_param :append_tag, :string, default: DEFAULT_PREPEND_TAG
   desc 'Deep rename/replace operation.'
   config_param :deep_rename, :bool, default: true
 
@@ -77,7 +80,7 @@ class Fluent::RenameKeyOutput < Fluent::Output
   def emit tag, es, chain
     es.each do |time, record|
       new_tag = @remove_tag_prefix ? tag.sub(@remove_tag_prefix, '') : tag
-      new_tag = "#{new_tag}.#{@append_tag}".sub(/^\./, '')
+      new_tag = "#{@prepend_tag}.#{new_tag}.#{@append_tag}".sub(/^\./, '').sub(/\.$/, '').sub(/\.\./, '.')
       new_record = rename_key record
       new_record = replace_key new_record
       router.emit new_tag, time, new_record
