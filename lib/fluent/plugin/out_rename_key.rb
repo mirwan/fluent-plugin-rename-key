@@ -27,7 +27,7 @@ class Fluent::RenameKeyOutput < Fluent::Output
   desc "Append custom tag postfix (default: #{DEFAULT_APPEND_TAG})."
   config_param :append_tag, :string, default: DEFAULT_APPEND_TAG
   desc "Prepend custom tag prefix (default: #{DEFAULT_PREPEND_TAG})."
-  config_param :append_tag, :string, default: DEFAULT_PREPEND_TAG
+  config_param :prepend_tag, :string, default: DEFAULT_PREPEND_TAG
   desc 'Deep rename/replace operation.'
   config_param :deep_rename, :bool, default: true
 
